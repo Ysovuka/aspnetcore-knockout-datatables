@@ -3,9 +3,32 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.10
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{AE7FB72B-4570-43E1-B408-A93644BA2294}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCore.Knockout.DataTables.Web", "src\AspNetCore.Knockout.DataTables.Web\AspNetCore.Knockout.DataTables.Web.csproj", "{1C6FC9EC-F8A3-49F4-863A-91A5E67B3827}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{AFA9AC89-197F-4464-A83F-ABE7C565ED25}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1C6FC9EC-F8A3-49F4-863A-91A5E67B3827}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C6FC9EC-F8A3-49F4-863A-91A5E67B3827}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C6FC9EC-F8A3-49F4-863A-91A5E67B3827}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C6FC9EC-F8A3-49F4-863A-91A5E67B3827}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFA9AC89-197F-4464-A83F-ABE7C565ED25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFA9AC89-197F-4464-A83F-ABE7C565ED25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFA9AC89-197F-4464-A83F-ABE7C565ED25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFA9AC89-197F-4464-A83F-ABE7C565ED25}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1C6FC9EC-F8A3-49F4-863A-91A5E67B3827} = {AE7FB72B-4570-43E1-B408-A93644BA2294}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F1635D6-034F-48C8-9C24-6F444E2733B2}

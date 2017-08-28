@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  aspnetcore.knockout.datatables.web:
+    image: aspnetcore.knockout.datatables.web
+    build:
+      context: ./src/AspNetCore.Knockout.DataTables.Web
+      dockerfile: Dockerfile
