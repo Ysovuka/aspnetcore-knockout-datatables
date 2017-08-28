@@ -89,30 +89,11 @@
                 self.create = function ()
                 {
                     self.items.push(self.default);
-
-                    // Destroy old datatable.
-                    //if (self.dataTable)
-                    //{
-                    //    self.dataTable.destroy();
-                    //}
-
-                    //// Create a new link from knockout to datatables.
-                    //self.dataTable = $("#items").DataTable({ responsive: true });
                 }    
 
                 self.delete = function (element, event)
                 {
-                    // Destroy old datatable.
-                    //if (self.dataTable) {
-                    //    var context = ko.contextFor(event.target);
-                    //    self.dataTable.row(context.$index()).remove().draw();
-                    //    self.dataTable.destroy();
-                    //}
-
                     self.items.remove(element);
-
-                    // Create a new link from knockout to datatables.
-                    //self.dataTable = $("#items").DataTable({ responsive: true });
                 }
             }
 
@@ -124,25 +105,6 @@
                         $element = $(element);
 
                         model.dataTable = $element.DataTable(options);
-
-                    //ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
-                    //    $element.dataTable().fnDestroy();
-                    //});
-                    value.subscribe(function (oldValue) {
-                        //console.log('one');
-                        //$element.dataTable().fnDestroy();
-                        //$element.find("tbody tr").remove();
-
-                    }, null, "beforeChange");
-
-                    value.subscribe(function (rowData) {
-                        //var $tb = $element.find("tbody");
-                        //$.each(rowData, function (idx, item) {
-                        //    $tb.append("<tr><td>" + item.Id() + "</td><td>" + item.Name() + "</td><td>" + item.Value() + "</td><td><button data-bind='click: $parent.delete' class='btn btn-default'>Delete</button></td></tr>");
-
-                        //});
-                        //$element.dataTable(options);
-                    }, null);
                 }
             }
 
@@ -153,11 +115,6 @@
 
                 // bind the data
                 ko.applyBindings(model);
-
-                // apply DataTables magic
-                //model.dataTable = $("#items").DataTable({
-                //    responsive: true,
-                //});
             });
         });
     </script>
