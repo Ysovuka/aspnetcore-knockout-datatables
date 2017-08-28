@@ -25,22 +25,22 @@
     <button data-bind="click: create" class="btn btn-default">Create</button>
 
     <!-- the table we apply DataTables magic too, data populated with Knockout Foreach iterating over view model -->
-    <table id="proposals" class="table table-striped table-bordered">
+    <table id="items" class="table table-striped table-bordered" data-bind="dataTable: items">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Name</th>
                 <th>Value</th>
+                <th>Actions</th>
             </tr>
         </thead>
-        <tbody>
-            <!-- ko foreach: items() -->
+        <tbody data-bind="foreach: items">
             <tr>
-                <td><span data-bind="text: $data.Id"></span></td>
-                <td><span data-bind="text: $data.Name"></span></td>
-                <td><span data-bind="text: $data.Value"></span></td>
+                <td><span data-bind="text: Id"></span></td>
+                <td><span data-bind="text: Name"></span></td>
+                <td><span data-bind="text: Value"></span></td>
+                <td><button data-bind="click: $parent.delete" class="btn btn-default">Delete</button></td>
             </tr>
-            <!-- /ko -->
         </tbody>
     </table>
 
@@ -77,37 +77,87 @@
                 self.Value = ko.observable(data.Value);
             }
 
-
-            var dataMappingOptions = {
-                key: function (data) {
-                    return data.Id;
-                },
-                create: function (options) {
-                    return new CustomFieldModel(options.data);
-                }
-            };
-
             // knockout view model
             function ViewModel(data) {
                 var self = this;
-
                 self.items = ko.observableArray();
+                self.dataTable = null;
 
                 // knockout mapping JSON data to view model
-                self.items(ko.mapping.fromJS(data, self));
+                ko.mapping.fromJS(data, {}, self);
 
                 self.create = function ()
                 {
-                    self.items.push(new CustomFieldModel({ Id: 0, Name: "", Value: "" }));
-                }
+                    self.items.push(self.default);
 
+                    // Destroy old datatable.
+                    //if (self.dataTable)
+                    //{
+                    //    self.dataTable.destroy();
+                    //}
+
+                    //// Create a new link from knockout to datatables.
+                    //self.dataTable = $("#items").DataTable({ responsive: true });
+                }    
+
+                self.delete = function (element, event)
+                {
+                    // Destroy old datatable.
+                    //if (self.dataTable) {
+                    //    var context = ko.contextFor(event.target);
+                    //    self.dataTable.row(context.$index()).remove().draw();
+                    //    self.dataTable.destroy();
+                    //}
+
+                    self.items.remove(element);
+
+                    // Create a new link from knockout to datatables.
+                    //self.dataTable = $("#items").DataTable({ responsive: true });
+                }
             }
+
+            ko.bindingHandlers.dataTable = {
+                init: function (element, valueAccessor, allBindingsAccessor) {
+                    var value = valueAccessor(),
+                        allBindings = ko.utils.unwrapObservable(allBindingsAccessor()),
+                        options = allBindings.dataTableOptions || {},
+                        $element = $(element);
+
+                        model.dataTable = $element.DataTable(options);
+
+                    //ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+                    //    $element.dataTable().fnDestroy();
+                    //});
+                    value.subscribe(function (oldValue) {
+                        //console.log('one');
+                        //$element.dataTable().fnDestroy();
+                        //$element.find("tbody tr").remove();
+
+                    }, null, "beforeChange");
+
+                    value.subscribe(function (rowData) {
+                        //var $tb = $element.find("tbody");
+                        //$.each(rowData, function (idx, item) {
+                        //    $tb.append("<tr><td>" + item.Id() + "</td><td>" + item.Name() + "</td><td>" + item.Value() + "</td><td><button data-bind='click: $parent.delete' class='btn btn-default'>Delete</button></td></tr>");
+
+                        //});
+                        //$element.dataTable(options);
+                    }, null);
+                }
+            }
+
+            var model = null;
             // get data - sample data from Donors Choose API
             $.getJSON("@Url.Action("Get", "Api")", function (data) {
+                model = new ViewModel(data);
+
                 // bind the data
-                ko.applyBindings(new ViewModel(data));
+                ko.applyBindings(model);
+
                 // apply DataTables magic
-                $("#proposals").DataTable({ responsive: true });
+                //model.dataTable = $("#items").DataTable({
+                //    responsive: true,
+                //});
             });
         });
     </script>

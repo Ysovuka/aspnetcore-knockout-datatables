@@ -17,7 +17,10 @@ namespace AspNetCore.Knockout.DataTables.Web.Controllers
         [HttpGet]
         public string Get()
         {
-            return JsonConvert.SerializeObject(new List<CustomFieldModel>
+            return JsonConvert.SerializeObject(new
+            {
+                @default = new CustomFieldModel(),
+                items = new List<CustomFieldModel>
                 {
                     new CustomFieldModel
                     {
@@ -31,6 +34,7 @@ namespace AspNetCore.Knockout.DataTables.Web.Controllers
                         Name = "LastName",
                         Value = "Thompson",
                     }
+            }
             });
         }
     }
